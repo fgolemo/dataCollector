@@ -16,20 +16,19 @@ class CompositionComplexity(FeatureExtractorAbstract):
         if not os.path.isfile(filepath):
             return ['NA']
         vd = VoxelData(filepath)
-        dnaMatrix = vd.getDNAmatrix().astype(int)
+        dnaMatrix = vd.getDNAmatrix()
+        if isinstance(dnaMatrix, bool):
+            return ['NA'] * 4
+        dnaMatrix = dnaMatrix.astype(int)
 
         H = 0
         total = 1000
         for i in range(5):
             count = (dnaMatrix == i).sum()
-            p_i = count/total
+            p_i = count / total
             if p_i == 0:
                 H -= 0
             else:
-                H -= p_i * math.log(p_i,2)
+                H -= p_i * math.log(p_i, 2)
 
         return [H]
-
-
-
-
