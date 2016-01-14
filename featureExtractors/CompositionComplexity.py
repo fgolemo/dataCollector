@@ -25,14 +25,10 @@ class CompositionComplexity(FeatureExtractorAbstract):
         total = 1000
         for i in range(5):
             count = (dnaMatrix == i).sum()
-            p_i = count/total
+            p_i = count / total
             if p_i == 0:
                 H -= 0
             else:
-                H -= p_i * math.log(p_i,2)
+                H -= p_i * math.log(p_i, 2)
 
         return [H]
-
-
-
-
