@@ -22,7 +22,10 @@ class ShapeComplexity(FeatureExtractorAbstract):
         if not os.path.isfile(filepath):
             return ['NA'] * 4
         vd = VoxelData(filepath)
-        dnaMatrix = vd.getDNAmatrix().astype(int)
+        dnaMatrix = vd.getDNAmatrix()
+        if isinstance(dnaMatrix, bool):
+            return ['NA'] * 4
+        dnaMatrix = dnaMatrix.astype(int)
         ratio, triangles = self.calc_complexity(dnaMatrix)
         limbs = self.calc_limbs(dnaMatrix)
 
